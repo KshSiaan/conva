@@ -1,0 +1,20 @@
+[package]
+name = "conva"
+version = "0.1.0"
+edition = "2024"
+description = "A simple CLI tool to zip and unzip files and folders"
+license = "MIT"
+repository = "https://github.com/KshSiaan/conva"
+readme = "README.md"
+
+
+[dependencies]
+zip = { version = "9.2.0", features = ["deflate64", "deflate", "time"] }
+clap = { version = "4.6.7", features = ["derive"] }
+walkdir = "2.5.0"
+
+
+[[bin]]
+name = "conva"
+version = "0.1.0"
+path = "src/main.rs" 
