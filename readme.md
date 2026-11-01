@@ -1,5 +1,8 @@
 # conva
 
+[![Release](https://img.shields.io/github/v/release/KshSiaan/conva)](https://github.com/KshSiaan/conva/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 A simple, fast command-line tool for zipping and unzipping files and folders. Run it from any directory in your terminal.
 
 Built with Rust.
@@ -8,8 +11,6 @@ Built with Rust.
 conva zip my-folder
 conva unzip my-folder.zip
 ```
-
-> Replace the examples above with your exact command syntax once you confirm it (run `conva --help`).
 
 ---
 
@@ -21,8 +22,7 @@ conva unzip my-folder.zip
 - Deflate and Deflate64 compression support
 - Works from any folder on your machine
 - Single small binary with no runtime dependencies
-
-> Add or remove items to match what the tool actually does today.
+- Prebuilt for Windows, macOS (Intel and Apple Silicon), and Linux (x86_64 and ARM64)
 
 ---
 
@@ -35,50 +35,51 @@ Pick whichever method suits you. After installing, open a **new terminal** and r
 **macOS / Linux**
 
 ```bash
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/<YOUR_GITHUB_USERNAME>/conva/releases/latest/download/conva-installer.sh | sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/KshSiaan/conva/releases/latest/download/conva-installer.sh | sh
 ```
 
 **Windows (PowerShell)**
 
 ```powershell
-powershell -ExecutionPolicy Bypass -c "irm https://github.com/<YOUR_GITHUB_USERNAME>/conva/releases/latest/download/conva-installer.ps1 | iex"
+powershell -ExecutionPolicy Bypass -c "irm https://github.com/KshSiaan/conva/releases/latest/download/conva-installer.ps1 | iex"
 ```
+
+The script installs `conva` into `~/.cargo/bin` (`%USERPROFILE%\.cargo\bin` on Windows) and adds that folder to your `PATH` if needed, so the command works from any directory.
 
 ### Option 2: Download a prebuilt binary
 
-1. Go to the [Releases page](https://github.com/<YOUR_GITHUB_USERNAME>/conva/releases).
+1. Go to the [Releases page](https://github.com/KshSiaan/conva/releases/latest).
 2. Download the file for your system:
-   - Windows: `conva-x86_64-pc-windows-msvc.zip`
-   - macOS (Apple Silicon): `conva-aarch64-apple-darwin.tar.xz`
-   - macOS (Intel): `conva-x86_64-apple-darwin.tar.xz`
-   - Linux: `conva-x86_64-unknown-linux-gnu.tar.xz`
+
+   | Platform | File |
+   | --- | --- |
+   | Windows (x64) | `conva-x86_64-pc-windows-msvc.zip` |
+   | macOS (Apple Silicon) | `conva-aarch64-apple-darwin.tar.xz` |
+   | macOS (Intel) | `conva-x86_64-apple-darwin.tar.xz` |
+   | Linux (x64) | `conva-x86_64-unknown-linux-gnu.tar.xz` |
+   | Linux (ARM64) | `conva-aarch64-unknown-linux-gnu.tar.xz` |
+
 3. Extract it and move the `conva` binary to a folder on your `PATH`.
 
-> File names depend on your cargo-dist setup. Check your actual release assets and update this list.
+Each release also includes a `sha256.sum` file so you can verify your download.
 
 ### Option 3: With Cargo (requires Rust)
 
-From GitHub:
-
 ```bash
-cargo install --git https://github.com/<YOUR_GITHUB_USERNAME>/conva
-```
-
-From crates.io (once published):
-
-```bash
-cargo install conva
+cargo install --git https://github.com/KshSiaan/conva
 ```
 
 ### Option 4: Build from source
 
 ```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/conva.git
+git clone https://github.com/KshSiaan/conva.git
 cd conva
 cargo build --release
 ```
 
 The binary will be at `target/release/conva`. Copy it somewhere on your `PATH`.
+
+Requires Rust 1.85 or newer.
 
 ---
 
@@ -121,23 +122,21 @@ conva zip --help
 conva unzip --help
 ```
 
-> TODO: paste the real output of `conva --help` here, and document any extra flags (output name, destination folder, compression level, etc.).
-
 ---
 
 ## Updating
 
-Re-run the install command from the method you used originally. With Cargo:
+Re-run the install script from Option 1 to get the latest release. If you installed with Cargo:
 
 ```bash
-cargo install --git https://github.com/<YOUR_GITHUB_USERNAME>/conva --force
+cargo install --git https://github.com/KshSiaan/conva --force
 ```
 
 ## Uninstalling
 
-With the install script or manual install, delete the `conva` binary from where you placed it.
+If you used the install script or a manual download, delete the `conva` binary from where it was placed (for example `~/.cargo/bin/conva`).
 
-With Cargo:
+If you installed with Cargo:
 
 ```bash
 cargo uninstall conva
@@ -154,24 +153,25 @@ cargo uninstall conva
 ## Development
 
 ```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/conva.git
+git clone https://github.com/KshSiaan/conva.git
 cd conva
 cargo run -- zip some-folder
-cargo test
 ```
 
 ## Releasing (maintainers)
 
-Releases are built with [cargo-dist](https://github.com/axodotdev/cargo-dist) and GitHub Actions.
+Releases are built with [dist](https://github.com/axodotdev/cargo-dist) and GitHub Actions.
 
 ```bash
-# bump the version in Cargo.toml, then:
+# 1. Bump the version in Cargo.toml
+# 2. Commit the change
 git commit -am "release v0.1.0"
+# 3. Tag it (the tag must match the version) and push
 git tag v0.1.0
-git push --tags
+git push && git push --tags
 ```
 
-The workflow builds binaries for every platform and publishes a GitHub release with install scripts attached.
+The workflow builds binaries for every platform and publishes a GitHub release with the install scripts attached.
 
 ---
 
@@ -181,9 +181,7 @@ Issues and pull requests are welcome. For larger changes, please open an issue f
 
 ## License
 
-[MIT](LICENSE)
-
-> Add a `LICENSE` file to the repo root to match.
+Released under the [MIT License](LICENSE).
 
 ## Author
 
