@@ -2,19 +2,33 @@
 name = "conva"
 version = "0.1.0"
 edition = "2024"
+rust-version = "1.85"
+authors = ["Khandaker Shahibul Hasan"]
 description = "A simple CLI tool to zip and unzip files and folders"
 license = "MIT"
-repository = "https://github.com/KshSiaan/conva"
 readme = "README.md"
-
+repository = "https://github.com/KshSiaan/conva"
+homepage = "https://github.com/KshSiaan/conva"
+keywords = ["zip", "unzip", "cli", "archive", "compression"]
+categories = ["command-line-utilities", "compression"]
 
 [dependencies]
-zip = { version = "9.2.0", features = ["deflate64", "deflate", "time"] }
 clap = { version = "4.6.7", features = ["derive"] }
 walkdir = "2.5.0"
+zip = { version = "9.2.0", features = ["deflate", "deflate64", "time"] }
 
+[package.metadata.wix]
+upgrade-guid = "ACE047A4-24D9-4827-AD6E-0699808B679A"
+path-guid = "BFB9BD53-281C-483F-818B-6297398AA966"
+license = false
+eula = false
 
-[[bin]]
-name = "conva"
-version = "0.1.0"
-path = "src/main.rs" 
+[profile.release]
+strip = true
+codegen-units = 1
+panic = "abort"
+
+# The profile that `dist` builds release artifacts with
+[profile.dist]
+inherits = "release"
+lto = "thin"
