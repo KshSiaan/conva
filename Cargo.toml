@@ -15,7 +15,7 @@ categories = ["command-line-utilities", "compression"]
 [dependencies]
 clap = { version = "4.6.7", features = ["derive"] }
 walkdir = "2.5.0"
-zip = { version = "9.2.0", features = ["deflate", "deflate64", "time"] }
+   zip = { version = "9.2.0", default-features = false, features = ["deflate", "deflate64", "time"] }
 
 [package.metadata.wix]
 upgrade-guid = "ACE047A4-24D9-4827-AD6E-0699808B679A"
